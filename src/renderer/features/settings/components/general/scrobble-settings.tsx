@@ -5,8 +5,13 @@ import {
     SettingOption,
     SettingsSection,
 } from '/@/renderer/features/settings/components/settings-section';
-import { usePlaybackSettings, useSettingsStoreActions } from '/@/renderer/store/settings.store';
+import {
+    ScrobbleMinimumMode,
+    usePlaybackSettings,
+    useSettingsStoreActions,
+} from '/@/renderer/store/settings.store';
 import { NumberInput } from '/@/shared/components/number-input/number-input';
+import { Select } from '/@/shared/components/select/select';
 import { Slider } from '/@/shared/components/slider/slider';
 import { Switch } from '/@/shared/components/switch/switch';
 import { toast } from '/@/shared/components/toast/toast';
@@ -87,6 +92,46 @@ export const ScrobbleSettings = memo(() => {
                 context: 'description',
             }),
             title: t('setting.minimumScrobbleSeconds'),
+        },
+        {
+            control: (
+                <Select
+                    data={[
+                        {
+                            label: t('setting.scrobbleMinimumMode', {
+                                context: 'optionBoth',
+                            }),
+                            value: ScrobbleMinimumMode.BOTH,
+                        },
+                        {
+                            label: t('setting.scrobbleMinimumMode', {
+                                context: 'optionSeconds',
+                            }),
+                            value: ScrobbleMinimumMode.SECONDS,
+                        },
+                        {
+                            label: t('setting.scrobbleMinimumMode', {
+                                context: 'optionPercentage',
+                            }),
+                            value: ScrobbleMinimumMode.PERCENTAGE,
+                        },
+                    ]}
+                    defaultValue={settings.scrobble.minimumMode}
+                    onChange={(e) =>
+                        setSettings({
+                            playback: {
+                                scrobble: {
+                                    minimumMode: e as ScrobbleMinimumMode,
+                                },
+                            },
+                        })
+                    }
+                />
+            ),
+            description: t('setting.scrobbleMinimumMode', {
+                context: 'description',
+            }),
+            title: t('setting.scrobbleMinimumMode'),
         },
         {
             control: (

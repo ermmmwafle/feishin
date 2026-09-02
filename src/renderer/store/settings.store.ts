@@ -189,6 +189,8 @@ const GenreTargetSchema = z.enum(['album', 'track']);
 
 const PlaylistTargetSchema = z.enum(['album', 'track']);
 
+const ScrobbleMinimumModeSchema = z.enum(['both', 'percentage', 'seconds']);
+
 const SideQueueTypeSchema = z.enum(['sideDrawerQueue', 'sideQueue']);
 const SideQueueLayoutSchema = z.enum(['horizontal', 'vertical']);
 
@@ -646,6 +648,7 @@ const LyricsSettingsSchema = z.object({
 
 const ScrobbleSettingsSchema = z.object({
     enabled: z.boolean(),
+    minimumMode: ScrobbleMinimumModeSchema,
     notify: z.boolean(),
     scrobbleAtDuration: z.number(),
     scrobbleAtPercentage: z.number(),
@@ -810,6 +813,14 @@ export const getServerTagAutocompleteName = (source: string): null | string =>
 
 export const toServerTagAutocompleteSource = (tagName: string): string =>
     `${SERVER_TAG_AUTOCOMPLETE_PREFIX}${tagName}`;
+
+export const ScrobbleMinimumMode = {
+    BOTH: 'both',
+    PERCENTAGE: 'percentage',
+    SECONDS: 'seconds',
+} as const;
+
+export type ScrobbleMinimumMode = (typeof ScrobbleMinimumMode)[keyof typeof ScrobbleMinimumMode];
 
 /**
  * This schema is used for validation of the imported settings json
@@ -2100,6 +2111,7 @@ const initialState: SettingsState = {
         preservePitch: true,
         scrobble: {
             enabled: true,
+            minimumMode: ScrobbleMinimumMode.BOTH,
             notify: false,
             scrobbleAtDuration: 240,
             scrobbleAtPercentage: 75,
