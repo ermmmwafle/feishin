@@ -139,7 +139,7 @@ export const QueueSongTitleArtistColumn = (props: ItemTableListInnerColumn) => {
                     >
                         <ExplicitIndicator explicitStatus={song?.explicitStatus} />
                         {row.name as string}
-                        {song?.trackSubtitle && props.itemType !== LibraryItem.QUEUE_SONG && (
+                        {song?.trackSubtitle && (
                             <Text
                                 className={clsx({
                                     [styles.active]: isActive,

@@ -116,7 +116,7 @@ function QueueSongTitleColumn(props: ItemTableListInnerColumn) {
                 >
                     <ExplicitIndicator explicitStatus={song?.explicitStatus} />
                     {row}
-                    {song?.trackSubtitle && props.itemType !== LibraryItem.QUEUE_SONG && (
+                    {song?.trackSubtitle && (
                         <Text
                             className={clsx({
                                 [styles.active]: isActive,
